@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const conf = require('./conf');
 // const router = require('./router');
 
 // =================================
@@ -27,6 +28,6 @@ app.use('/', router);
 // =================================
 // App exposure
 // =================================
-app.listen(3000, () => {
+app.listen(conf.server.port, () => {
   console.log('app launched');
 });

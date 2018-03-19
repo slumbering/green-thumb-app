@@ -1,0 +1,21 @@
+version: "2"
+services:
+  # Service for api
+  web:
+    # Build DockerFile in this directory
+    build: .
+    volumes:
+      # Mount a volume in current directory
+      - ./:/app
+    ports:
+      - "3000:3000"
+    links:
+        - mongo
+  # Service for mongoDB
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    # Data are located on the host machine in /data/mongoDB
+    volumes:
+      - /data/mongodb-greenTeub:/data/db

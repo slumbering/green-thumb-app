@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const conf = require('./conf');
-// const router = require('./router');
+const router = require('./router');
 
 // =================================
 // Express initialisation

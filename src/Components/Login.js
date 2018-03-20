@@ -4,7 +4,9 @@ class Login extends Component {
 
     render() {
         return (
-            <form> formulaire de login </form>
+            <div>
+                <form> formulaire de login </form>
+            </div>
         )
     }
 

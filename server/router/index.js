@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controller/userController');
+const plantController = require('../controller/plantController');
 
 // Start route
 router.get('/', (req, res) => {

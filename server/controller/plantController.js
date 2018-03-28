@@ -10,11 +10,11 @@ const plantController = {
     // Instanciate User
     let plant = new Plant();
 
-    plant.color: req.body.color;
-    plant.name: req.body.name;
-    plant.species: req.body.species;
-    plant.water_period: req.body.water_period;
-    plant.water_last_date: req.body.water_last_date;
+    plant.color = req.body.color;
+    plant.name = req.body.name;
+    plant.species = req.body.species;
+    plant.water_period = req.body.water_period;
+    plant.water_last_date = req.body.water_last_date;
 
     // TODO plant.user with auth token
 

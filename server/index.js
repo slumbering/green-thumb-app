@@ -29,5 +29,5 @@ app.use('/', router);
 // App exposure
 // =================================
 app.listen(conf.server.port, () => {
-  console.log('app launched');
+  console.log('app launched on port : ' + conf.server.port);
 });

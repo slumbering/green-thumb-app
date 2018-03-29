@@ -2,12 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const conf = require('./conf');
 const router = require('./router');
-
+const auth = require('./middleware/auth');
 // =================================
 // Express initialisation
 // =================================
 const app = express();
-
+// =================================
+// Auth initialisation
+// =================================
+auth();
 // =================================
 // Database setup
 // =================================
@@ -29,5 +32,5 @@ app.use('/', router);
 // App exposure
 // =================================
 app.listen(conf.server.port, () => {
-  console.log('app launched');
+  console.log('app launched on port : ' + conf.server.port);
 });

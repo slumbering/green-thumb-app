@@ -11,7 +11,6 @@ const app = express();
 // Auth initialisation
 // =================================
 auth();
-router.use(/^\/(?!login).*/, passport.authenticate('jwt', {session: false}));
 // =================================
 // Database setup
 // =================================

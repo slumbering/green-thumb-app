@@ -1,3 +1,4 @@
+const express = require('express');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
@@ -5,6 +6,8 @@ const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const User = require('../models/user');
 const conf = require('../conf');
+
+const app = express();
 
 const auth = function() {
   // Strategy used for /login route
@@ -41,8 +44,11 @@ const auth = function() {
             .catch(err => {
                 return cb(err);
             });
-    }
-));
+  }));
+
+
+  // User the strategie
+  app.use('/^\/(?!login).*/', passport.authenticate('jwt', {session: false}));
 }
 
 module.exports = auth;

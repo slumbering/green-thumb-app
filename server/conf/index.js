@@ -5,6 +5,9 @@ const conf = {
   api: {
     // Char to split list passed in string
     splitChar: '-'
+  },
+  auth: {
+    secret: 'jmenbatlescouillesBIM'
   }
 }
 

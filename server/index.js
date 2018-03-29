@@ -2,12 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const conf = require('./conf');
 const router = require('./router');
-
+const auth = require('./middleware/auth');
 // =================================
 // Express initialisation
 // =================================
 const app = express();
-
+// =================================
+// Auth initialisation
+// =================================
+auth();
+router.use(/^\/(?!login).*/, passport.authenticate('jwt', {session: false}));
 // =================================
 // Database setup
 // =================================

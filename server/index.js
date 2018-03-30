@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const conf = require('./conf');
 const router = require('./router');
 const auth = require('./middleware/auth');
@@ -11,6 +12,11 @@ const app = express();
 // Auth initialisation
 // =================================
 auth();
+// =================================
+// Bodyparser setup
+// =================================
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // =================================
 // Database setup
 // =================================

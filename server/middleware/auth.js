@@ -45,10 +45,6 @@ const auth = function() {
                 return cb(err);
             });
   }));
-
-
-  // User the strategie
-  app.use('/^\/(?!login).*/', passport.authenticate('jwt', {session: false}));
 }
 
 module.exports = auth;

@@ -7,10 +7,12 @@ import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
 import logo from './logo.svg';
 
-
 const loggedIn = false;
 
 class App extends Component {
+
+  state = () => { items: [] }
+
   render() {
     return (
       <Router>

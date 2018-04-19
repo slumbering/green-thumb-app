@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const userController = require('../controller/userController');
 const plantController = require('../controller/plantController');
+const userMiddleware = require('../middleware/userMiddleware');
 const router = express.Router();
 
 
@@ -17,7 +18,7 @@ router.use( passport.authenticate('jwt', {session: false}));
 // Global routes
 router.route('/user')
   // Create a user (accessed at POST http://localhost:8080/api/user)
-  .post((req, res) => { userController.createAction(req, res); })
+  .post(userMiddleware.reqEncryptPassword, (req, res) => { userController.createAction(req, res); })
 
   // READ : Get all user
   .get((req, res) => { userController.getAllAction(req, res); });

@@ -2,17 +2,36 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
 
-// const Root = () => {
-//     return (
-//         <Router>
-//             {/* <Route exact path="/" component={Login} /> */}
-//             <App />
-            
-//         </Router>
-//     )
-// }
+const itemsReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'ADD_ITEM':
+            action.payload.id = Date.now();
+            const newState = [...state, action.payload];
+            return newState;
+        case 'EDIT_ITEM':
+            const itemID = action.payload.id;
+            return state.map(item => {
+                if(item.id !== itemID) {
+                    return item;
+                }
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+                return action.payload;
+            })
+
+            default:
+                return state;
+    }
+}
+
+const store = createStore(
+    combineReducers({items: itemsReducer}),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+window.store = store;
+
+
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

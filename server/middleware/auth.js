@@ -16,7 +16,6 @@ const auth = function() {
           passwordField: 'password'
       },
       function (mail, password, cb) {
-          // TODO : encrypt password
           return User.findOne({mail, password})
              .then(user => {
                  if (!user) {

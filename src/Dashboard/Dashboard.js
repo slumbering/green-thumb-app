@@ -33,7 +33,7 @@ class Dashboard extends Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    {/* <DashboardItemList/> */}
+                    <DashboardItemList itemList={this.props.items}/>
                     {
                         this.state.requestNewItem
                         ? <DashboardItemAdd addItem={this.props.addItem}/>

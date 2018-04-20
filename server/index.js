@@ -2,21 +2,25 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const conf = require('./conf');
+const seeder = require('./seeder');
 const router = require('./router');
 const auth = require('./middleware/auth');
 // =================================
 // Express initialisation
 // =================================
 const app = express();
+
 // =================================
 // Auth initialisation
 // =================================
 auth();
+
 // =================================
 // Bodyparser setup
 // =================================
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 // =================================
 // Database setup
 // =================================
@@ -28,6 +32,7 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+seeder.seedDataBase();
 
 // =================================
 // Routing setup

@@ -11,18 +11,18 @@ const app = express();
 
 const auth = function() {
   // Strategy used for /login route
-  passport.use(new LocalStrategy({
-          usernameField: 'mail',
+  passport.use( new LocalStrategy({
+          usernameField: 'login',
           passwordField: 'password'
       },
-      function (mail, password, cb) {
-          return User.findOne({mail, password})
+      (login, password, cb) => {
+          return User.findOne({login, password})
              .then(user => {
                  if (!user) {
                      return cb(null, false, {message: 'Incorrect mail or password.'});
                  }
 
-                 return cb(null, user, {message: 'Logged In Successfully'});
+                 return cb(null, user.toJSON(), {message: 'Logged In Successfully'});
             })
             .catch(err => cb(err));
       }

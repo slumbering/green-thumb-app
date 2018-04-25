@@ -11,7 +11,7 @@ const loggedIn = false;
 
 class App extends Component {
 
-  state = () => { items: [] }
+  state = { items: [] }
 
   render() {
     return (

@@ -2,18 +2,48 @@ import React, { Component } from 'react';
 import { Container, Button, Icon, Grid } from 'semantic-ui-react';
 import { connect, Provider } from 'react-redux';
 import DashboardItemList from './DashboardItemList';
+import DashboardItemAdd from './DashboardItemAdd';
 
 class Dashboard extends Component {
+
+    state = {
+        requestNewItem: false
+    }
+
+    addNewItem = () => {
+        this.setState({
+            requestNewItem: true
+        })
+    }
+
     render() {
         return (
             <div>
                 <Container textAlign='center'>
-                <DashboardItemList/>
-                <Button icon labelPosition='right' onClick={() => {console.log('add a plant !')}}>
-                    Ajouter une plante toto
-                    <Icon name='plus' />
-                </Button>
-            </Container>
+                    <Grid container columns={3}>
+                        <Grid.Row>
+                            <Grid.Column>
+                                Photo plante plus nom plante
+                            </Grid.Column>
+                            <Grid.Column>
+                                espèce plante
+                            </Grid.Column>
+                            <Grid.Column>
+                                jour restant avant arrosage
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                    <DashboardItemList itemList={this.props.items}/>
+                    {
+                        this.state.requestNewItem
+                        ? <DashboardItemAdd addItem={this.props.addItem}/>
+                        : <div>no request </div>
+                    }
+                    <Button icon labelPosition='right' onClick={this.addNewItem}>
+                        Ajouter une plante
+                        <Icon name='plus' />
+                    </Button>
+                </Container>
             </div>
         )
     }

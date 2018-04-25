@@ -8,6 +8,8 @@ import { createStore, combineReducers } from 'redux';
 const itemsReducer = (state = [], action) => {
     switch(action.type) {
         case 'ADD_ITEM':
+            console.log('ADD_ITEM');
+            console.log(state);
             action.payload.id = Date.now();
             const newState = [...state, action.payload];
             return newState;

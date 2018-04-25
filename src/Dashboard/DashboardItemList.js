@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import { Image, Grid } from 'semantic-ui-react';
+import DashboardItem from './DashboardItem';
 
-class DashboardItemList extends Component {
-    render() {
-        return(
-            <div>
-                <Grid container columns={3}>
-                    <Grid.Column>
-                        Photo plante plus nom plante
-                    </Grid.Column>
-                    <Grid.Column>
-                        espèce plante
-                    </Grid.Column>
-                    <Grid.Column>
-                        jour restant avant arrosage
-                    </Grid.Column>
-                </Grid>
-            </div>
-        )
-    }
+const DashboardItemList = (props) => {
+    return(
+        <div>
+            {
+                props.itemList.map(item =>  <DashboardItem data={item} key={item.id}/>)
+            }
+        </div>
+    )
 }
 
 export default DashboardItemList;

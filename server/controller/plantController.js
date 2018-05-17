@@ -20,7 +20,7 @@ const plantController = {
 
     // Persist data
     plant.save((err) => {
-      if (err) { res.send(err); }
+      if (err) { return res.send(err); }
       // TODO delete tours
 
       // Res user created ( TODO verify if it's a correct implementation )

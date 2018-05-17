@@ -1,12 +1,31 @@
 const mongoose = require('mongoose');
+const plantValidator = require('../validators/plantValidator');
 const Schema = mongoose.Schema;
 
 const PlantSchema = new Schema({
-  color: String,
-  name: String,
-  species: String,
-  water_period: Number,
-  water_last_date: Date,
+  color: {
+    type: String,
+    validate: plantValidator.color
+  },
+  name: {
+    type: String,
+    validate: plantValidator.name,
+    required: true
+  },
+  species: {
+    type: String,
+    validate: plantValidator.species,
+    required: true
+  },
+  water_period: {
+    type: String,
+    validate: plantValidator.water_period,
+    required: true
+  },
+  water_last_date: {
+    type: String,
+    validate: plantValidator.water_last_date,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

@@ -29,12 +29,16 @@ const plantValidator = {
       message: 'Plant water_period is not valid. Must be an int'
     })
   ] ,
-  water_last_date:[
-    validate({
-      validator: 'isBefore',
-      message: 'Plant water_period is not valid. Must be a timstamp before now'
-    })
-  ]
+  water_last_date: function () {
+    const dateArgument = String(Date.now());
+    return [
+      validate({
+        validator: 'isBefore',
+        arguments: dateArgument ,
+        message: 'Plant water_period is not valid. Must be a timstamp before now'
+      })
+    ];
+  }
 };
 
 module.exports = plantValidator;

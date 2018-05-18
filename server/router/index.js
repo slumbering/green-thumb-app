@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const apiRouter = require('./apiRouter');
 const authController = require('../controller/authController');
+const userController = require('../controller/userController');
 const userMiddleware = require('../middleware/userMiddleware');
 
 // Start route
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 //  Auth routing
 // ==============================
 router.post('/login', userMiddleware.reqEncryptPassword, (req, res) => { authController.loginAction(req, res); });
-
+router.post('/register', userMiddleware.reqEncryptPassword, (req, res) => { userController.createAction(req, res); });
 // ==============================
 //  API routing
 // ==============================

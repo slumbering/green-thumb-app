@@ -33,7 +33,9 @@ const plantController = {
   getAllAction: (req, res) => {
     // TODO : add limit and offset parameter with a default value
     Plant.find((err, plants) => {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       res.json(plants);
     });
@@ -44,7 +46,9 @@ const plantController = {
   getOneAction: (req, res) => {
     // Find user by ID
     User.findById(req.params.plant_id, function (err, plant) {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       res.json(plant);
     });
@@ -55,7 +59,9 @@ const plantController = {
   */
   updateAction: (req, res) => {
     Plant.findById(req.params.plant_id, function (err, plant) {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       // Set property from request
       if (req.body.color){
@@ -89,7 +95,9 @@ const plantController = {
   },
   deleteAction: (req, res) => {
     plant.remove({ _id: req.params.user_id }, function (err, user) {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       // TODO remove this plant from user plant list
       res.send({ message: 'ok' });

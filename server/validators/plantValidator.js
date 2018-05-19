@@ -13,7 +13,7 @@ const plantValidator = {
     validate({
       validator: 'isLength',
       arguments: [3, 20],
-      message:'Plant name length is not valid. 3 < Length < 20 '
+      message:'Plant name length is not valid. 3 < Length < 20'
     })
   ],
   species:[

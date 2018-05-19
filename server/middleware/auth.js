@@ -27,6 +27,8 @@ const auth = function() {
               throw err;
             }  else if (isMatch) {
               return cb(null, user.toJSON(), {message: 'Logged In Successfully'});
+            } else {
+              return cb(null, false, {message: 'Incorrect mail or password.'});
             }
 
           });

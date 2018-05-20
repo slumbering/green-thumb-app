@@ -27,15 +27,34 @@ const userValidator = {
       message: 'Login should contain at least 1 digit, 1 lower case, 1 upper case and between 8 and 30 char'
     })
   ],
-  // mail: [
-  //   validate({})
-  // ],
-  // firstName: [
-  //   validate({})
-  // ],
-  // lastName: [
-  //   validate({})
-  // ],
+  mail: [
+    validate({
+      validator: 'isEmail',
+      message:'Mail must be a valid email'
+    })
+  ],
+  firstName: [
+    validate({
+      validator: 'isAlpha',
+      message: 'firstName should only contains alpha char'
+    }),
+    validate({
+      validator: 'isLength',
+      arguments: [3, 20],
+      message:'firstName name length is not valid. 3 < Length < 20 '
+    })
+  ],
+  lastName: [
+    validate({
+      validator: 'isAlpha',
+      message: 'lastName should only contains alpha char'
+    }),
+    validate({
+      validator: 'isLength',
+      arguments: [3, 20],
+      message:'lastName name length is not valid. 3 < Length < 20 '
+    })
+  ],
 
 };
 

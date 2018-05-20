@@ -18,17 +18,17 @@ const UserSchema = new Schema({
   mail: {
     type: String,
     required: true,
-    // validate: userValidator.mail
+    validate: userValidator.mail
   },
   firstName: {
     type: String,
     required: true,
-    // validate: userValidator.firstName
+    validate: userValidator.firstName
   },
   lastName: {
     type: String,
     required: true,
-    // validate: userValidator.lastName
+    validate: userValidator.lastName
   },
   rights: {
     type: [String],

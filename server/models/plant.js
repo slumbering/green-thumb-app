@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const plantValidator = require('../validators/plantValidator');
 const Schema = mongoose.Schema;
-
+const publicFields = ['color', 'name', 'species', 'water_period', 'water_last_date', ]
 const PlantSchema = new Schema({
   color: {
     type: String,

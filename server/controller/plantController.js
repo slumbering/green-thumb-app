@@ -16,11 +16,11 @@ const plantController = {
     plant.water_period = req.body.water_period;
     plant.water_last_date = req.body.water_last_date;
 
-    // TODO plant.user with auth token
-
     // Persist data
     plant.save((err) => {
-      if (err) { return res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
       // TODO delete tours
 
       // Res user created ( TODO verify if it's a correct implementation )

@@ -24,8 +24,9 @@ const userController = {
 
     // Persist data
     user.save((err) => {
-      if (err) { res.send(err); }
-      // TODO delete tours
+      if (err) {
+        return res.send(err);
+      }
 
       // Res user created ( TODO verify if it's a correct implementation )
       res.json(user);
@@ -38,7 +39,9 @@ const userController = {
     // TODO : add limit and offset parameter with a default value
     User.find((err, users) => {
       // TODO : res 500 if error
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       res.json(users);
     });
@@ -50,7 +53,9 @@ const userController = {
     // Find user by ID
     User.findById(req.params.user_id, function (err, user) {
       // TODO : res 500 if error
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       res.json(user);
     });
@@ -61,7 +66,9 @@ const userController = {
   */
   updateAction: (req, res) => {
     User.findById(req.params.user_id, function (err, user) {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       // Set property from request
       if (req.body.login){
@@ -85,7 +92,9 @@ const userController = {
 
       // save the bear and check for errors
       user.save((err) => {
-        if (err) { res.send(err); }
+        if (err) {
+          return res.send(err);
+        }
 
         res.json(user);
       });
@@ -93,11 +102,15 @@ const userController = {
   },
   deleteAction: (req, res) => {
     User.remove({ _id: req.params.user_id }, function (err, user) {
-      if (err) { res.send(err); }
+      if (err) {
+        return res.send(err);
+      }
 
       // Delete plants from user
       Plants.remove({ user: req.body.user_id }, function (err) {
-        if (err) { res.send(err); }
+        if (err) {
+          return res.send(err);
+        }
 
         res.send({ message: 'ok' });
       });

@@ -4,7 +4,12 @@ const conf = {
   },
   api: {
     // Char to split list passed in string
-    splitChar: '-'
+    splitChar: '-',
+    endpoints: {
+      user: {
+        publicFields: 'login password mail firstName lastName plants created_at updated_at'
+      }
+    }
   },
   auth: {
     secret: 'jmenbatlescouillesBIM'

@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const conf = require('../conf');
+const publicFields = conf.api.endpoints.user.publicFields ;
 
 const userController = {
   /**
@@ -28,8 +29,8 @@ const userController = {
         return res.send(err);
       }
 
-      // Res user created ( TODO verify if it's a correct implementation )
-      res.json(user);
+      // Res user created
+      res.json(user.getPublicFields());
     });
   },
   /**
@@ -37,7 +38,7 @@ const userController = {
   */
   getAllAction: (req, res) => {
     // TODO : add limit and offset parameter with a default value
-    User.find((err, users) => {
+    User.find({}, publicFields,  (err, users) => {
       // TODO : res 500 if error
       if (err) {
         return res.send(err);
@@ -51,7 +52,7 @@ const userController = {
   */
   getOneAction: (req, res) => {
     // Find user by ID
-    User.findById(req.params.user_id, function (err, user) {
+    User.findById(req.params.user_id, publicFields, function (err, user) {
       // TODO : res 500 if error
       if (err) {
         return res.send(err);
@@ -96,7 +97,7 @@ const userController = {
           return res.send(err);
         }
 
-        res.json(user);
+        res.json(user.getPublicFields());
       });
     });
   },

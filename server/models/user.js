@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const shajs = require('sha.js');
 const userValidator = require('../validators/userValidator');
+const conf = require('../conf');
 const Schema = mongoose.Schema;
-const publicFields = ['login', 'password', 'mail', 'firstName', 'lastName', 'plants', 'created_at', 'updated_at'];
+const publicFields = conf.api.endpoints.user.publicFields ;
 
 const UserSchema = new Schema({
   login: {
@@ -68,13 +69,14 @@ UserSchema.pre('save', function(next) {
  * Return an object only with public properties
  *
  */
-UserSchema.methods.getPublicFields = () => {
+UserSchema.methods.getPublicFields = function() {
+  const publicFieldsList = publicFields.split(' ');
   const publicPlant = {};
   const rawPlant = this;
   // Loop on public properties
-  for (let i = 0; i < publicFields.length; i++) {
+  for (let i = 0; i < publicFieldsList.length; i++) {
     // Assign public property
-    publicPlant[publicFields[i]] = rawPlant[publicFields[i]];
+    publicPlant[publicFieldsList[i]] = rawPlant[publicFieldsList[i]];
   }
   return publicPlant;
 };

@@ -3,7 +3,7 @@ const shajs = require('sha.js');
 const userValidator = require('../validators/userValidator');
 const conf = require('../conf');
 const Schema = mongoose.Schema;
-const publicFields = conf.api.endpoints.user.publicFields ;
+const publicFields = conf.api.endpoints.user.publicFields;
 
 const UserSchema = new Schema({
   login: {
@@ -71,14 +71,14 @@ UserSchema.pre('save', function(next) {
  */
 UserSchema.methods.getPublicFields = function() {
   const publicFieldsList = publicFields.split(' ');
-  const publicPlant = {};
-  const rawPlant = this;
+  const publicUser = {};
+  const rawUser = this;
   // Loop on public properties
   for (let i = 0; i < publicFieldsList.length; i++) {
     // Assign public property
-    publicPlant[publicFieldsList[i]] = rawPlant[publicFieldsList[i]];
+    publicUser[publicFieldsList[i]] = rawUser[publicFieldsList[i]];
   }
-  return publicPlant;
+  return publicUser;
 };
 /**
  * Execute a callback with isMatch parameter ( true if passwords matches)

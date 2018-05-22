@@ -1,5 +1,6 @@
 const Plant = require('../models/plant');
 const conf = require('../conf');
+const publicFields = conf.api.endpoints.plant.publicFields;
 
 const plantController = {
   /**
@@ -24,7 +25,7 @@ const plantController = {
       // TODO delete tours
 
       // Res user created ( TODO verify if it's a correct implementation )
-      res.json(plant);
+      res.json(plant.getPublicFields());
     });
   },
   /**
@@ -32,7 +33,7 @@ const plantController = {
   */
   getAllAction: (req, res) => {
     // TODO : add limit and offset parameter with a default value
-    Plant.find((err, plants) => {
+    Plant.find({}, publicFields, (err, plants) => {
       if (err) {
         return res.send(err);
       }
@@ -45,7 +46,7 @@ const plantController = {
   */
   getOneAction: (req, res) => {
     // Find user by ID
-    User.findById(req.params.plant_id, function (err, plant) {
+    User.findById(req.params.plant_id, publicFields, function (err, plant) {
       if (err) {
         return res.send(err);
       }
@@ -89,7 +90,7 @@ const plantController = {
       plant.save((err) => {
         if (err) { res.send(err); }
 
-        res.json(plant);
+        res.json(plant.getPublicFields());
       });
     });
   },

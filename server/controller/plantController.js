@@ -35,14 +35,15 @@ const plantController = {
     let offset = 0;
     let limit = conf.api.limit;
     // check offset : req.body.offset
-    if (typeof req.body.offset !== 'undefined') {
-      offset = req.body.offset;
+    if (typeof req.query.offset !== 'undefined') {
+      offset = parseInt(req.query.offset);
     }
     // check limit : req.body.limit
-    if (typeof req.body.limit !== 'undefined') {
-      offset = req.body.limit;
+    if (typeof req.query.limit !== 'undefined') {
+      limit = parseInt(req.query.limit);
     }
-    Plant.find({})
+    console.log(typeof offset);
+    Plant.find()
       .select(publicFields)
       .limit(limit)
       .skip(offset)

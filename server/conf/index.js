@@ -6,7 +6,7 @@ const conf = {
     // splitChar : Char to split list passed in string
     splitChar: '-',
     // limit : basic limit for List routes
-    limit:'10',
+    limit: 10,
     endpoints: {
       user: {
         publicFields: 'login password mail firstName lastName plants created_at updated_at'

@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const conf = require('../conf');
 const publicFields = conf.api.endpoints.user.publicFields ;
-
 const userController = {
   /**
   * Create an user
@@ -37,15 +36,28 @@ const userController = {
   * Get All users
   */
   getAllAction: (req, res) => {
-    // TODO : add limit and offset parameter with a default value
-    User.find({}, publicFields,  (err, users) => {
-      // TODO : res 500 if error
-      if (err) {
-        return res.send(err);
-      }
+    let offset = 0;
+    let limit = conf.api.limit;
+    // check offset : req.body.offset
+    if (typeof req.body.offset !== 'undefined') {
+      offset = req.body.offset;
+    }
+    // check limit : req.body.limit
+    if (typeof req.body.limit !== 'undefined') {
+      offset = req.body.limit;
+    }
+    User.find({})
+      .select(publicFields)
+      .limit(limit)
+      .skip(offset)
+      .exec((err, users) => {
+        // TODO : res 500 if error
+        if (err) {
+          return res.send(err);
+        }
 
-      res.json(users);
-    });
+        res.json(users);
+      });
   },
   /**
   * Get One users by id

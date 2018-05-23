@@ -32,14 +32,28 @@ const plantController = {
   * Get All users
   */
   getAllAction: (req, res) => {
-    // TODO : add limit and offset parameter with a default value
-    Plant.find({}, publicFields, (err, plants) => {
-      if (err) {
-        return res.send(err);
-      }
+    let offset = 0;
+    let limit = conf.api.limit;
+    // check offset : req.body.offset
+    if (typeof req.body.offset !== 'undefined') {
+      offset = req.body.offset;
+    }
+    // check limit : req.body.limit
+    if (typeof req.body.limit !== 'undefined') {
+      offset = req.body.limit;
+    }
+    User.find({})
+      .select(publicFields)
+      .limit(limit)
+      .skip(offset)
+      .exec((err, plants) => {
+        // TODO : res 500 if error
+        if (err) {
+          return res.send(err);
+        }
 
-      res.json(plants);
-    });
+        res.json(plants);
+      });
   },
   /**
   * Get One users by id
@@ -81,7 +95,6 @@ const plantController = {
         plant.water_last_date = req.body.water_last_date;
       }
 
-      // TODO Delete when auth is finished
       if (req.body.user){
         plant.user = req.body.user;
       }

@@ -42,7 +42,7 @@ const plantController = {
     if (typeof req.body.limit !== 'undefined') {
       offset = req.body.limit;
     }
-    User.find({})
+    Plant.find({})
       .select(publicFields)
       .limit(limit)
       .skip(offset)

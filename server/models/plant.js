@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const plantValidator = require('../validators/plantValidator');
+const conf = require('../conf');
 const Schema = mongoose.Schema;
+const publicFields = conf.api.endpoints.plant.publicFields;
 
 const PlantSchema = new Schema({
   color: {
@@ -43,5 +45,25 @@ PlantSchema.pre('save', function(next) {
   this.updated_at = Date.now();
   next();
 });
+
+/**
+ * Return an object only with public properties
+ *
+ */
+
+PlantSchema.methods.getPublicFields = function() {
+  const publicFieldsList = publicFields.split(' ');
+  const publicPlant = {};
+  const rawPlant = this;
+  // Loop on public properties
+  for (let i = 0; i < publicFieldsList.length; i++) {
+    // Assign public property
+    publicPlant[publicFieldsList[i]] = rawPlant[publicFieldsList[i]];
+  }
+
+  return publicPlant;
+
+};
+
 
 module.exports = mongoose.model('Plant', PlantSchema);

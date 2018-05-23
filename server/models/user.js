@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const shajs = require('sha.js');
 const userValidator = require('../validators/userValidator');
+const conf = require('../conf');
 const Schema = mongoose.Schema;
+const publicFields = conf.api.endpoints.user.publicFields;
 
 const UserSchema = new Schema({
   login: {
@@ -62,6 +64,22 @@ UserSchema.pre('save', function(next) {
   user.password = shajs('sha256').update(user.password).digest('hex');
   next();
 });
+
+/**
+ * Return an object only with public properties
+ *
+ */
+UserSchema.methods.getPublicFields = function() {
+  const publicFieldsList = publicFields.split(' ');
+  const publicUser = {};
+  const rawUser = this;
+  // Loop on public properties
+  for (let i = 0; i < publicFieldsList.length; i++) {
+    // Assign public property
+    publicUser[publicFieldsList[i]] = rawUser[publicFieldsList[i]];
+  }
+  return publicUser;
+};
 /**
  * Execute a callback with isMatch parameter ( true if passwords matches)
  * @param candidatePassword

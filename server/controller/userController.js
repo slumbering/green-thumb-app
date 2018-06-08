@@ -46,7 +46,6 @@ const userController = {
     if (typeof req.query.limit !== 'undefined') {
       limit = parseInt(req.query.limit);
     }
-    console.log(typeof offset);
     User.find()
       .select(publicFields)
       .limit(limit)

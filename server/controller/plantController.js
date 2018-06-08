@@ -42,7 +42,6 @@ const plantController = {
     if (typeof req.query.limit !== 'undefined') {
       limit = parseInt(req.query.limit);
     }
-    console.log(typeof offset);
     Plant.find()
       .select(publicFields)
       .limit(limit)

@@ -1,11 +1,44 @@
 import React, { Component } from 'react';
 import { Button, Container, Form, Header  } from 'semantic-ui-react';
+import axios from 'axios';
 
 class LoginForm extends Component {
 
-    handleSubmit = (event) => {
-        this.setState = true;
-        console.log(this.state);
+    state = {
+        login: '',
+        password: ''
+    }
+
+    handleChange = (event, data) => {
+        if(data.name == "login") {
+            this.setState({
+                login: event.target.value
+            })
+        }
+        if(data.name == "password") {
+            this.setState({
+                password: event.target.value
+            })
+        }
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        const user = {
+            login: this.state.login,
+            password: this.state.password
+        };
+
+        axios.post(`http://localhost:3000/login`,  user )
+        .then(resp => {
+            const token = resp.data.token;
+            localStorage.setItem('user-token', token);
+        })
+        .catch(function(error){
+            console.log('LOGIN Failed - user.actions.js', error);
+            localStorage.removeItem('user-token') // if the request fails, remove any possible user token if possible
+        })
     }
 
     render() {
@@ -14,8 +47,8 @@ class LoginForm extends Component {
                 <Header as='h1'>Login</Header>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Field>
-                        <Form.Input label='Enter username' type='text' />
-                        <Form.Input label='Enter Password' type='password' />
+                        <Form.Input name="login" label='Enter username' type='text' onChange={this.handleChange}/>
+                        <Form.Input name="password" label='Enter Password' type='password' onChange={this.handleChange}/>
                     </Form.Field>
                     <Button type='submit'>Submit</Button>
                 </Form>

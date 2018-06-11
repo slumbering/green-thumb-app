@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { history } from './helpers';
+import { alertActions } from './actions';
+import { PrivateRoute } from './components';
 import './App.css';
 import Login from './Login/Login';
 import Subscription from './Subscription/Subscription';
@@ -7,30 +12,43 @@ import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
 import logo from './logo.svg';
 
-const loggedIn = false;
-
 class App extends Component {
 
-  state = { items: [] }
+  constructor(props) {
+            super(props);
+     
+            const { dispatch } = this.props;
+            history.listen((location, action) => {
+                // clear alert on location change
+                dispatch(alertActions.clear());
+            });
+        }
 
   render() {
+    const { alert } = this.props;
+
     return (
-      <Router>
+      <Router history={history}>
         <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <h1 className="App-title">Welcome to Green Teub</h1>
             </header>
-            <main> 
-              <Route exact path="/" render={() => (
+            <main>
+                <PrivateRoute exact path="/" component={Login} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Subscription} />
+
+              {/* <Login/>                */}
+              {/* <Route exact path="/login" render={() => (
                 loggedIn ? (
                   <Redirect to="/dashboard"/>
                 ) : (
                   <Login/>
                 )
-              )}/>
-              <Route path="/subscribe" component={Subscription}/>
-              <Route path="/dashboard" component={Dashboard}/>
+              )}/> */}
+              {/* <Route path="/subscribe" component={Subscription}/> */}
+              {/* <Route path="/dashboard" component={Dashboard}/> */}
             </main>
         </div>
       </Router>

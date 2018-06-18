@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Container, Form, Header  } from 'semantic-ui-react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { userActions } from '../actions';
 
 class LoginForm extends Component {
 
@@ -30,15 +31,12 @@ class LoginForm extends Component {
             password: this.state.password
         };
 
-        axios.post(`http://localhost:3000/login`,  user )
-        .then(resp => {
-            const token = resp.data.token;
-            localStorage.setItem('user-token', token);
-        })
-        .catch(function(error){
-            console.log('LOGIN Failed - user.actions.js', error);
-            localStorage.removeItem('user-token') // if the request fails, remove any possible user token if possible
-        })
+        dispatch(
+            userActions.login(
+                user.login, 
+                user.password
+            )
+        );
     }
 
     render() {
@@ -58,4 +56,15 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+
+// Construire ces méthodes en dehors de la class
+const mapStateToProps = (state) => {
+    return {
+        login: state.login,
+        password: state.password
+    }
+}
+
+// Grace à mapStateToProps nous avons abonné notre app au store
+// Ceci va de paire avec le Provider
+export default connect(mapStateToProps)(LoginForm);

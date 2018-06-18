@@ -9,7 +9,7 @@ class Login extends Component {
     }
 
     render() {
-
+        
         const { redirect } = this.handleLogin;
         
         if (redirect) {

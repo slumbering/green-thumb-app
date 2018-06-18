@@ -6,7 +6,6 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../helpers';
-import { request } from 'http';
 
 // Public action creators are exposed via the userActions object
 export const userActions = {

@@ -6,7 +6,7 @@ import { history } from './helpers';
 import { alertActions } from './actions';
 import { PrivateRoute } from './components';
 import './App.css';
-import Login from './Login/Login';
+import LoginForm from './Login/LoginForm';
 import Subscription from './Subscription/Subscription';
 import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
@@ -35,20 +35,9 @@ class App extends Component {
               <h1 className="App-title">Welcome to Green Teub</h1>
             </header>
             <main>
-                <PrivateRoute exact path="/" component={Login} />
-                <Route path="/login" component={Login} />
+                <PrivateRoute exact path="/" component={LoginForm} />
+                <Route path="/login" component={LoginForm} />
                 <Route path="/register" component={Subscription} />
-
-              {/* <Login/>                */}
-              {/* <Route exact path="/login" render={() => (
-                loggedIn ? (
-                  <Redirect to="/dashboard"/>
-                ) : (
-                  <Login/>
-                )
-              )}/> */}
-              {/* <Route path="/subscribe" component={Subscription}/> */}
-              {/* <Route path="/dashboard" component={Dashboard}/> */}
             </main>
         </div>
       </Router>

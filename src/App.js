@@ -16,12 +16,11 @@ class App extends Component {
 
   constructor(props) {
             super(props);
-     
             const { dispatch } = this.props;
-            history.listen((location, action) => {
-                // clear alert on location change
-                dispatch(alertActions.clear());
-            });
+    //         history.listen((location, action) => {
+    //             // clear alert on location change
+    //             dispatch(alertActions.clear());
+    //         });
         }
 
   render() {
@@ -38,6 +37,7 @@ class App extends Component {
                 <PrivateRoute exact path="/" component={LoginForm} />
                 <Route path="/login" component={LoginForm} />
                 <Route path="/register" component={Subscription} />
+                <Route path="/dashboard" component={Dashboard} />
             </main>
         </div>
       </Router>

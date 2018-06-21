@@ -5,9 +5,16 @@ import { userActions } from '../actions';
 
 class LoginForm extends Component {
 
-    state = {
-        login: '',
-        password: ''
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            login: '',
+            password: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = (event, data) => {
@@ -31,7 +38,7 @@ class LoginForm extends Component {
             password: this.state.password
         };
 
-        dispatch(
+        this.props.dispatch(
             userActions.login(
                 user.login, 
                 user.password

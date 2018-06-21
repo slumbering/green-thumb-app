@@ -1,6 +1,7 @@
 // The user service encapsulates all backend api calls for performing CRUD operations on user data, as well as logging and out of the example application. The service methods are exported via the userService object at the top of the file, and the implementation of each method is located in the function declarations below.
 
 import { authHeader } from '../helpers';
+import axios from 'axios';
 
 export const userService = {
     login,
@@ -13,29 +14,49 @@ export const userService = {
 };
 
 function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers : {'Content-Type': 'application/json'},
-        body: JSON.stringify({username, password})
-    };
 
-    return fetch('/login', requestOptions)
-        .then(response => {
-            if(!response.ok) {
-                return Promise.reject(response.statusText);
-            }
-
-            return response.json()
+    return axios.post('http://localhost:3000/login', {
+            login: username,
+            password: password
         })
-        .then(user => {
-            // login successful if there's a jwt (JSON Web Token) token in the response
-            if(user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-            }
+        .then(function (response) {
+            console.log(response);
 
-            return user;
+            if(response.data.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user-token', JSON.stringify(response.data.token));
+            }
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
         });
+    
+
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers : {'Content-Type': 'application/json'},
+    //     body: {username, password}
+    // };
+
+    // return fetch('http://localhost:3000/login', requestOptions)
+    //     .then(response => {
+    //         if(!response.ok) {
+    //             alert('rejected');
+    //             return Promise.reject(response.statusText);
+    //         }
+
+    //         return response.json()
+    //     })
+    //     .then(user => {
+    //         // login successful if there's a jwt (JSON Web Token) token in the response
+    //         if(user && user.token) {
+    //             // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //             localStorage.setItem('user', JSON.stringify(user));
+    //         }
+
+    //         return user;
+    //     });
 }
 
 function logout() {

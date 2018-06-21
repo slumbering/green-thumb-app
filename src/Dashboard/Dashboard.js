@@ -33,8 +33,12 @@ class Dashboard extends Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    <DashboardItemList itemList={this.props.items}/>
                     {
+                        this.props.items !== undefined
+                        ? <DashboardItemList itemList={this.props.items}/>
+                        : <div>no items yet </div>
+                    }
+                    {                        
                         this.state.requestNewItem
                         ? <DashboardItemAdd addItem={this.props.addItem}/>
                         : <div>no request </div>

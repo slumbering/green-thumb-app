@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { history } from './helpers';
-import { alertActions } from './actions';
 import { PrivateRoute } from './components';
 import './App.css';
-import LoginForm from './Login/LoginForm';
+import Login from './Login/Login';
 import Subscription from './Subscription/Subscription';
 import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
@@ -34,8 +32,8 @@ class App extends Component {
               <h1 className="App-title">Welcome to Green Teub</h1>
             </header>
             <main>
-                <PrivateRoute exact path="/" component={LoginForm} />
-                <Route path="/login" component={LoginForm} />
+                <PrivateRoute exact path="/" component={Dashboard} />
+                <Route path="/login" component={ () => { return localStorage.getItem('user-token') ? <Dashboard/> : <Login/> } } />
                 <Route path="/register" component={Subscription} />
                 <Route path="/dashboard" component={Dashboard} />
             </main>

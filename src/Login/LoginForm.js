@@ -44,12 +44,17 @@ class LoginForm extends Component {
                 user.password
             )
         );
+
     }
 
     render() {
+        const { alert } = this.props
         return (
             <Container>
                 <Header as='h1'>Login</Header>
+                {alert.message &&
+                    <div className={`alert ${alert.type}`}>{alert.message}</div>
+                }
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Field>
                         <Form.Input name="login" label='Enter username' type='text' onChange={this.handleChange}/>
@@ -66,10 +71,12 @@ class LoginForm extends Component {
 
 // Construire ces méthodes en dehors de la class
 const mapStateToProps = (state) => {
+    const { alert, authentication } = state;
+    
     return {
-        login: state.login,
-        password: state.password
-    }
+        alert,
+        authentication
+    };
 }
 
 // Grace à mapStateToProps nous avons abonné notre app au store

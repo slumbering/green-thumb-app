@@ -16,47 +16,22 @@ export const userService = {
 function login(username, password) {
 
     return axios.post('http://localhost:3000/login', {
-            login: username,
-            password: password
-        })
-        .then(function (response) {
-            console.log(response);
+        login: username,
+        password: password
+    })
+    .then(function (response) {
 
-            if(response.data.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user-token', JSON.stringify(response.data.token));
-            }
-            return response.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    
+        if(response.data.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user-token', JSON.stringify(response.data.token));
+        }
+        return response.data;
+    })
+    .catch(function (error) {
+        console.log(error);
 
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers : {'Content-Type': 'application/json'},
-    //     body: {username, password}
-    // };
-
-    // return fetch('http://localhost:3000/login', requestOptions)
-    //     .then(response => {
-    //         if(!response.ok) {
-    //             alert('rejected');
-    //             return Promise.reject(response.statusText);
-    //         }
-
-    //         return response.json()
-    //     })
-    //     .then(user => {
-    //         // login successful if there's a jwt (JSON Web Token) token in the response
-    //         if(user && user.token) {
-    //             // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //             localStorage.setItem('user', JSON.stringify(user));
-    //         }
-
-    //         return user;
-    //     });
+        return Promise.reject(error.response.data.message);
+    });
 }
 
 function logout() {

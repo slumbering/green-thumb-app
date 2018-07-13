@@ -15,7 +15,7 @@ import axios from 'axios';
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   console.log('Axios config =>',config);
-  config.headers.Authorization = 'pouet';
+  config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('user-token'))}`;
   return config;
 }, function (error) {
   console.log("Axios Error =====>", error);

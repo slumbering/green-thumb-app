@@ -23,19 +23,19 @@ const plantValidator = {
       message: 'Plant species length is not valid. 3 < Length < 50'
     })
   ] ,
-  water_period:[
+  waterPeriod:[
     validate({
       validator: 'isInt',
-      message: 'Plant water_period is not valid. Must be an int'
+      message: 'Plant waterPeriod is not valid. Must be an int'
     })
   ] ,
-  water_last_date: function () {
+  waterLastDate: function () {
     const dateArgument = String(Date.now());
     return [
       validate({
         validator: 'isBefore',
         arguments: dateArgument ,
-        message: 'Plant water_period is not valid. Must be a timstamp before now'
+        message: 'Plant waterPeriod is not valid. Must be a timstamp before now'
       })
     ];
   }

@@ -9,17 +9,31 @@ import Subscription from './Subscription/Subscription';
 import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
 import logo from './logo.svg';
+import axios from 'axios';
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  console.log('Axios config =>',config);
+  config.headers.Authorization = 'pouet';
+  return config;
+}, function (error) {
+  console.log("Axios Error =====>", error);
+  // Do something with request error
+  return Promise.reject(error);
+});
+
 
 class App extends Component {
 
   constructor(props) {
-            super(props);
-            const { dispatch } = this.props;
+        super(props);
+        const { dispatch } = this.props;
     //         history.listen((location, action) => {
     //             // clear alert on location change
     //             dispatch(alertActions.clear());
     //         });
-        }
+    }
 
   render() {
     const { alert } = this.props;

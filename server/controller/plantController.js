@@ -10,12 +10,12 @@ const plantController = {
   createAction: (req, res) => {
     // Instanciate User
     let plant = new Plant();
-
+    
     plant.color = req.body.color;
     plant.name = req.body.name;
     plant.species = req.body.species;
-    plant.water_period = req.body.water_period;
-    plant.water_last_date = req.body.water_last_date;
+    plant.waterPeriod = req.body.waterPeriod;
+    plant.waterLastDate = req.body.waterLastDate;
 
     // Persist data
     plant.save((err) => {
@@ -88,11 +88,11 @@ const plantController = {
       if (req.body.species){
         plant.species = req.body.species;
       }
-      if (req.body.water_period){
-        plant.water_period = req.body.water_period;
+      if (req.body.waterPeriod){
+        plant.waterPeriod = req.body.waterPeriod;
       }
-      if (req.body.water_last_date){
-        plant.water_last_date = req.body.water_last_date;
+      if (req.body.waterLastDate){
+        plant.waterLastDate = req.body.waterLastDate;
       }
 
       if (req.body.user){

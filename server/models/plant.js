@@ -19,14 +19,14 @@ const PlantSchema = new Schema({
     validate: plantValidator.species,
     required: true
   },
-  water_period: {
+  waterPeriod: {
     type: String,
-    validate: plantValidator.water_period,
+    validate: plantValidator.waterPeriod,
     required: true
   },
-  water_last_date: {
+  waterLastDate: {
     type: String,
-    validate: plantValidator.water_last_date,
+    validate: plantValidator.waterLastDate,
   },
   user: {
     type: Schema.Types.ObjectId,

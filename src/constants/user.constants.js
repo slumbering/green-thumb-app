@@ -1,4 +1,6 @@
-// The user constants object contains the redux user action types that can be dispatched in the react application, async actions that perform http requests involve a request followed by a success or error response, so each of these three steps is represented by a redux action
+// The user constants object contains the redux user action types that can be dispatched in the react application,
+// async actions that perform http requests involve a request followed by a success or error response, so each of
+// these three steps is represented by a redux action
 
 export const userConstants = {
     REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',
@@ -17,5 +19,5 @@ export const userConstants = {
 
     DELETE_REQUEST: 'USERS_DELETE_REQUEST',
     DELETE_SUCCESS: 'USERS_DELETE_SUCCESS',
-    DELETE_FAILURE: 'USERS_DELETE_FAILURE'
+    DELETE_FAILURE: 'USERS_DELETE_FAILURE',
 }

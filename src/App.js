@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { history } from './helpers';
-import { alertActions } from './actions';
 import { PrivateRoute } from './components';
 import './App.css';
 import Login from './Login/Login';
@@ -11,18 +9,31 @@ import Subscription from './Subscription/Subscription';
 import Dashboard from './Dashboard/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
 import logo from './logo.svg';
+import axios from 'axios';
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  console.log('Axios config =>',config);
+  config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('user-token'))}`;
+  return config;
+}, function (error) {
+  console.log("Axios Error =====>", error);
+  // Do something with request error
+  return Promise.reject(error);
+});
+
 
 class App extends Component {
 
   constructor(props) {
-            super(props);
-     
-            const { dispatch } = this.props;
-            history.listen((location, action) => {
-                // clear alert on location change
-                dispatch(alertActions.clear());
-            });
-        }
+        super(props);
+        const { dispatch } = this.props;
+    //         history.listen((location, action) => {
+    //             // clear alert on location change
+    //             dispatch(alertActions.clear());
+    //         });
+    }
 
   render() {
     const { alert } = this.props;
@@ -35,20 +46,10 @@ class App extends Component {
               <h1 className="App-title">Welcome to Green Teub</h1>
             </header>
             <main>
-                <PrivateRoute exact path="/" component={Login} />
-                <Route path="/login" component={Login} />
+                <PrivateRoute exact path="/" component={Dashboard} />
+                <Route path="/login" component={ () => { return localStorage.getItem('user-token') ? <Dashboard/> : <Login/> } } />
                 <Route path="/register" component={Subscription} />
-
-              {/* <Login/>                */}
-              {/* <Route exact path="/login" render={() => (
-                loggedIn ? (
-                  <Redirect to="/dashboard"/>
-                ) : (
-                  <Login/>
-                )
-              )}/> */}
-              {/* <Route path="/subscribe" component={Subscription}/> */}
-              {/* <Route path="/dashboard" component={Dashboard}/> */}
+                <Route path="/dashboard" component={Dashboard} />
             </main>
         </div>
       </Router>

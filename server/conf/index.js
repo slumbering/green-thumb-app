@@ -12,7 +12,7 @@ const conf = {
         publicFields: 'login password mail firstName lastName plants created_at updated_at'
       },
       plant: {
-        publicFields: 'color name species water_period water_last_date user created_at updated_at'
+        publicFields: 'color name species waterPeriod waterLastDate user created_at updated_at'
       }
     }
   },

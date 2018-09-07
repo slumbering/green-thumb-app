@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Link } from 'react-router-dom';
 
 import { history } from './helpers';
-import { PrivateRoute } from './components';
+import { PrivateRoute } from './components/PrivateRoute';
 import './App.css';
-import Login from './Login/Login';
-import Subscription from './Subscription/Subscription';
-import Dashboard from './Dashboard/Dashboard';
+import Login from './components/Login';
+import Subscription from './components/Subscription';
+import Dashboard from './components/Dashboard';
 import 'semantic-ui-css/semantic.min.css';
-import logo from './logo.svg';
+import logo from './thumbs-up.png';
 import axios from 'axios';
+import { Button, Menu } from 'semantic-ui-react'
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  console.log('Axios config =>',config);
   config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('user-token'))}`;
   return config;
 }, function (error) {
@@ -26,31 +26,27 @@ axios.interceptors.request.use(function (config) {
 
 class App extends Component {
 
-  constructor(props) {
-        super(props);
-        const { dispatch } = this.props;
-    //         history.listen((location, action) => {
-    //             // clear alert on location change
-    //             dispatch(alertActions.clear());
-    //         });
-    }
-
   render() {
-    const { alert } = this.props;
-
     return (
       <Router history={history}>
         <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome to Green Teub</h1>
-            </header>
-            <main>
-                <PrivateRoute exact path="/" component={Dashboard} />
-                <Route path="/login" component={ () => { return localStorage.getItem('user-token') ? <Dashboard/> : <Login/> } } />
-                <Route path="/register" component={Subscription} />
-                <Route path="/dashboard" component={Dashboard} />
-            </main>
+          <header className="App-header">
+            <Menu compact floated size='mini'>
+              <Menu.Item>
+                <Button color='green'>
+                  <Link to='/signup'> sign up</Link>
+                </Button>
+              </Menu.Item>
+            </Menu>
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Welcome to Green Teub</h1>
+          </header>
+          <main>
+            <PrivateRoute exact path="/" component={Dashboard} />
+            <Route path="/login" component={() => { return localStorage.getItem('user-token') ? <Dashboard /> : <Login /> }} />
+            <Route path="/signup" component={Subscription} />
+            <Route path="/dashboard" component={Dashboard} />
+          </main>
         </div>
       </Router>
     );

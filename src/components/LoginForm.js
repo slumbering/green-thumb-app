@@ -18,12 +18,12 @@ class LoginForm extends Component {
     }
 
     handleChange = (event, data) => {
-        if(data.name == "login") {
+        if(data.name === "login") {
             this.setState({
                 login: event.target.value
             })
         }
-        if(data.name == "password") {
+        if(data.name === "password") {
             this.setState({
                 password: event.target.value
             })

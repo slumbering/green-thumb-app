@@ -7,6 +7,8 @@ class Subscription extends Component {
             <Container>
                 <Header as='h1'>Subscribe</Header>
                 <Form>
+                    <Form.Field id="form-input-control-firstname" control={Input} label='First Name' placeholder='First Name'/>
+                    <Form.Field id="form-input-control-lastname" control={Input} label='Last Name' placeholder='Last Name'/>
                     <Form.Field id="form-input-control-login" control={Input} label='Login' placeholder='Login'/>
                     <Form.Field id="form-input-control-password" control={Input} label='Password' placeholder='Password'/>
                     <Form.Field id="form-input-control-password-repeat" control={Input} label='Password again' placeholder='Password again'/>

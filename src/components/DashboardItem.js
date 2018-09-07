@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 
 class DashboardItem extends Component {
 
@@ -15,7 +15,7 @@ class DashboardItem extends Component {
                                 {this.props.data.species}                                
                             </Grid.Column>
                             <Grid.Column>
-                                {this.props.data.watering}
+                                {this.props.data.waterPeriod}
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

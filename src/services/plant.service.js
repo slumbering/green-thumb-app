@@ -5,7 +5,8 @@
 import axios from 'axios';
 
 export const plantService = {
-    addPlant
+    addPlant,
+    getAllPlants
 };
 
 function addPlant(plant) {
@@ -25,5 +26,19 @@ function addPlant(plant) {
         console.log(error);
 
         return Promise.reject(error);
+    });
+}
+
+function getAllPlants() {
+    return axios.get('http://localhost:3000/api/plant')
+    .then(function (response) {
+      // handle success
+
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      
+      return Promise.reject(error);
     });
 }

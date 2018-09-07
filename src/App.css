@@ -8,7 +8,7 @@
 
 .App-header {
   background-color: green;
-  height: 150px;
+  height: 180px;
   padding: 20px;
   color: white;
 }
@@ -19,4 +19,10 @@
 
 .App-intro {
   font-size: large;
+}
+
+.App-header .ui.menu {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }

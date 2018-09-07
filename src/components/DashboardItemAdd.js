@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Input } from 'semantic-ui-react';
-import { plantActions } from '../actions/plant.action';
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class DashboardItemAdd extends Component {
 
@@ -22,12 +22,10 @@ class DashboardItemAdd extends Component {
         const plant = {
             name: this.state.name,
             species: this.state.species,
-            waterPeriod: parseInt(this.state.waterPeriod)
+            waterPeriod: parseInt(this.state.waterPeriod, 10)
         }
 
-       this.props.dispatch(
-           plantActions.create(plant)
-       );
+        this.props.createPlant(plant);
     }
 
     render() {
@@ -46,16 +44,6 @@ class DashboardItemAdd extends Component {
     }
 }
 
-// Construire ces méthodes en dehors de la class
-const mapStateToProps = (state) => {
-    const { alert, itemsReducer } = state;
-    
-    return {
-        alert,
-        itemsReducer
-    };
-}
-
 // Grace à mapStateToProps nous avons abonné notre app au store
 // Ceci va de paire avec le Provider
-export default connect(mapStateToProps)(DashboardItemAdd);
+export default connect(null, actions)(DashboardItemAdd);

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route, Link, Switch } from 'react-router-dom';
 
 import { history } from './helpers';
 import { PrivateRoute } from './components/PrivateRoute';
 import './App.css';
 import Login from './components/Login';
-import Subscription from './components/Subscription';
+import SignupForm from './components/SignupForm';
 import Dashboard from './components/Dashboard';
+import PageNotFound from './components/PageNotFound';
 import 'semantic-ui-css/semantic.min.css';
 import logo from './thumbs-up.png';
 import axios from 'axios';
@@ -31,21 +32,17 @@ class App extends Component {
       <Router history={history}>
         <div className="App">
           <header className="App-header">
-            <Menu compact floated size='mini'>
-              <Menu.Item>
-                <Button color='green'>
-                  <Link to='/signup'> sign up</Link>
-                </Button>
-              </Menu.Item>
-            </Menu>
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to Green Teub</h1>
           </header>
           <main>
-            <PrivateRoute exact path="/" component={Dashboard} />
-            <Route path="/login" component={() => { return localStorage.getItem('user-token') ? <Dashboard /> : <Login /> }} />
-            <Route path="/signup" component={Subscription} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/" component={Login} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={SignupForm} />
+              <Route component={PageNotFound} />
+            </Switch>
           </main>
         </div>
       </Router>

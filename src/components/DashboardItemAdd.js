@@ -1,49 +1,67 @@
 import React, { Component } from 'react';
 import { Form, Button, Input } from 'semantic-ui-react';
+import { reduxForm, Field } from 'redux-form';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class DashboardItemAdd extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            name: '',
-            species: '',
-            waterPeriod: 0
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const plant = {
-            name: this.state.name,
-            species: this.state.species,
-            waterPeriod: parseInt(this.state.waterPeriod, 10)
-        }
-
-        this.props.createPlant(plant);
+    handleSubmit = (formProps) => {
+        this.props.createPlant(formProps);
     }
 
     render() {
+
+        const { handleSubmit } = this.props;
         return(
             <div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={handleSubmit(this.handleSubmit)}>
                     <Form.Group widths='equal'>
-                        <Form.Field name="name" control={Input} onChange={(event) => this.setState({name: event.target.value})} fluid label='Nom de la plance' placeholder='Nom de la plance' />
-                        <Form.Field name="species" control={Input} onChange={(event) => this.setState({species: event.target.value})} fluid label='Espèce' placeholder='Espèce' />
-                        <Form.Field name="waterPeriod" control={Input} type='number' max={5} onChange={(event) => this.setState({waterPeriod: event.target.value})} fluid label='fréquence darrosage' placeholder='fréquence darrosage' />
-                        <Form.Field control={Button}>Submit</Form.Field>
+                        <Form.Field>
+                        <label>Nom de la plante </label>
+                        <Field
+                            name="name"
+                            type="text"
+                            component="input"
+                            autoComplete="none"
+                        />
+                        </Form.Field>
+
+                        <Form.Field>
+                        <label>Espèce </label>
+                        <Field
+                            name="species"
+                            type="text"
+                            component="input"
+                            autoComplete="none"
+                        />
+                        </Form.Field>
+
+                        <Form.Field>
+                        <label>Fréquence d'arrosage</label>
+                        <Field
+                            name="waterPeriod"
+                            type="number"
+                            component="input"
+                            autoComplete="none"
+                        />
+                        </Form.Field>
                     </Form.Group>
+                    <Form.Field control={Button}>Submit</Form.Field>
                 </Form>
             </div>
         )
     }
 }
 
+function mapStateToProps(state) {
+    return { plantsList: state.plantsList};
+}
+
 // Grace à mapStateToProps nous avons abonné notre app au store
 // Ceci va de paire avec le Provider
-export default connect(null, actions)(DashboardItemAdd);
+export default compose(
+    connect( mapStateToProps, actions),
+    reduxForm({form: 'addPlant'})
+)(DashboardItemAdd);

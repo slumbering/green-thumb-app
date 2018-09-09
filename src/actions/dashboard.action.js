@@ -5,10 +5,7 @@
 // Async actions typically dispatch a request action before performing an async task (e.g. an http request), 
 // and then dispatch a success or error action based on the result of the async task.
 
-import { plantConstants } from '../constants';
-import { plantService } from '../services';
-import { alertActions } from '.';
-import { CREATE_PLANT, FETCH_ALL } from '../constants/plant.constants';
+import { CREATE_PLANT, CREATE_PLANT_ERROR, FETCH_ALL, FETCH_ALL_ERROR } from '../constants/plant.constants';
 import axios from 'axios';
 
 // Public action creators are exposed via the userActions object
@@ -40,37 +37,61 @@ import axios from 'axios';
 //     function failure(plant) { return { type: plantConstants.ADD_FAILURE, plant}}
 // }
 
-export function createPlant(plant) {
-    console.log("plant ================>", plant);
+// export function createPlant(plant) {
+//     console.log("plant ================>", plant);
 
-    return dispatch => {
-        return axios.post('http://localhost:3000/api/plant', {
-            name: plant.name,
-            species: plant.species,
-            waterPeriod: plant.waterPeriod
-        })
-        .then(function(response) {
-            dispatch(
-                {
-                    type: CREATE_PLANT,
-                    payload: response
-                }
-            )
+//     return dispatch => {
+//         return axios.post('http://localhost:3000/api/plant', {
+//             name: plant.name,
+//             species: plant.species,
+//             waterPeriod: plant.waterPeriod
+//         })
+//         .then(function(response) {
+//             dispatch(
+//                 {
+//                     type: CREATE_PLANT,
+//                     payload: response
+//                 }
+//             )
+//         });
+//     }
+// }
+
+// export function fetchPlants() {
+//     return dispatch => {
+// return axios.get('http://localhost:3000/api/plant')
+// .then(function(response) {
+//     console.log('response ==> ', response);
+//     dispatch(
+//         {
+//             type: FETCH_ALL,
+//             payload: response
+//         }
+//     )
+// });
+//     }
+// }
+export const createPlant = (formProps) => async dispatch => {
+    try {
+        const response = await axios.post('http://localhost:3000/api/plant', {
+            name: formProps.name,
+            species: formProps.species,
+            waterPeriod: formProps.waterPeriod
         });
+
+        dispatch({ type: CREATE_PLANT, payload: response.data });
+
+    } catch (e) {
+        dispatch({ type: CREATE_PLANT_ERROR, errorMessage: e });
     }
 }
 
-export function fetchPlants() {
-    return dispatch => {
-        return axios.get('http://localhost:3000/api/plant')
-        .then(function(response) {
-            console.log('response ==> ', response);
-            dispatch(
-                {
-                    type: FETCH_ALL,
-                    payload: response
-                }
-            )
-        });
+export const fetchPlants = () => async dispatch => {
+    try {
+        const response = await axios.get('http://localhost:3000/api/plant');
+
+        dispatch({ type: FETCH_ALL, payload: response.data });
+    } catch (e) {
+        dispatch({ type: FETCH_ALL_ERROR, errorMessage: e });
     }
 }

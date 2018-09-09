@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react/dist/commonjs';
 
 class DashboardItemList extends Component {
 
-    state = { plants: '' }
-
     componentWillMount() {
-        console.log('component will mount');
         this.props.fetchPlants();
     }
 
@@ -30,8 +27,8 @@ class DashboardItemList extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.plantsList.length > 0 ? (
-                            this.props.plantsList.map(function (plant) {
+                        {this.props.plantsList.payload.length > 0 ? (
+                            this.props.plantsList.payload.map(function (plant) {
                                 return <Table.Row key={plant.created_at}>
                                     <Table.Cell>
                                         {plant.name}
@@ -62,7 +59,7 @@ class DashboardItemList extends Component {
 
 // Construire ces méthodes en dehors de la class
 function mapStateToProps(state) {
-    return { plantsList: state.itemsReducer };
+    return { plantsList: state.plantsList};
 }
 
 // Grace à mapStateToProps nous avons abonné notre app au store

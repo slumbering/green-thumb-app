@@ -3,7 +3,7 @@ import { Form, Button, Input } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 class DashboardItemAdd extends Component {
 

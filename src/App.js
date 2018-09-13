@@ -4,12 +4,12 @@ import { Router, Route, Link, Switch } from 'react-router-dom';
 import { history } from './helpers';
 import { PrivateRoute } from './components/PrivateRoute';
 import './App.css';
-import Login from './components/Login';
-import SignupForm from './components/SignupForm';
-import Dashboard from './components/Dashboard';
+import Login from './components/Auth/Login';
+import SignupForm from './components/Auth/SignupForm';
+import Dashboard from './components/Dashboard/Dashboard';
 import PageNotFound from './components/PageNotFound';
+import Header from './components/Header';
 import 'semantic-ui-css/semantic.min.css';
-import logo from './thumbs-up.png';
 import axios from 'axios';
 import { Button, Menu } from 'semantic-ui-react'
 
@@ -31,13 +31,11 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to Green Teub</h1>
-          </header>
+          <Header />
           <main>
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
+              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/" component={Login} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={SignupForm} />

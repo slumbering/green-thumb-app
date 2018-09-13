@@ -3,6 +3,7 @@ import { Container, Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DashboardItemList from './DashboardItemList';
 import DashboardItemAdd from './DashboardItemAdd';
+import requireAuth from '../requireAuth';
 
 class Dashboard extends Component {
 
@@ -17,6 +18,7 @@ class Dashboard extends Component {
     }
 
     render() {
+        {console.log(this.props.authentication)}
         return (
             <div>
                 <Container textAlign='center'>
@@ -34,38 +36,12 @@ class Dashboard extends Component {
     }
 }
 
-// const addItemActionCreator = (item) => {
-//     return {
-//       type: 'ADD_ITEM',
-//       payload: item
-//     }
-//   }
-  
-//   const editItemActionCreator = (item) => {
-//     return {
-//       type: 'EDIT_ITEM',
-//       payload: item
-//     }
-//   }
-  
-//   const mapDispatchToProps = (dispatch) => {
-//     return {
-//         addItem: (item) => {
-//             dispatch(addItemActionCreator(item));
-//         },
-//         editItem: (item) => {
-//             dispatch(editItemActionCreator(item));            
-//         }
-//     }
-//   }
-
 // Construire ces méthodes en dehors de la class
 const mapStateToProps = (state) => {
-    const { alert, itemsReducer } = state;
+    const { authentication } = state.authentication;
     
     return {
-        alert,
-        itemsReducer
+        authentication
     };
 }
 
@@ -73,4 +49,4 @@ const mapStateToProps = (state) => {
 // Ceci va de paire avec le Provider
 // export default Dashboard;
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(requireAuth(Dashboard));

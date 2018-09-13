@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Container, Form, Header  } from 'semantic-ui-react';
-import { compose } from 'redux';
+import { compose } from 'redux'; 
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { history } from '../helpers';
-import * as actions from '../actions/user.actions';
+import { history } from '../../helpers';
+import * as actions from '../../actions/user.actions';
 
 class LoginForm extends Component {
 
@@ -15,7 +15,6 @@ class LoginForm extends Component {
     }
 
     render() {
-        // const { alert } = this.props
         const { handleSubmit } = this.props;
         return (
             <Container>

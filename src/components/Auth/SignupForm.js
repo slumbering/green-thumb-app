@@ -3,7 +3,7 @@ import { Button, Container, Form, Header } from 'semantic-ui-react/dist/commonjs
 import { compose } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import * as actions from '../actions/user.actions';
+import * as actions from '../../actions/user.actions';
 
 class SignupForm extends Component {
 

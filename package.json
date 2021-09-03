@@ -25,7 +25,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/gtteam69/green-thumb-app#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",

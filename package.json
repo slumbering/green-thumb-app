@@ -32,7 +32,7 @@
     "lodash": "^4.17.5",
     "mongoose": "^6.0.5",
     "mongoose-validator": "^2.0.2",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.13",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
